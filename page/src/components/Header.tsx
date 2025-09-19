@@ -34,7 +34,7 @@ export function Header() {
               backdropFilter: 'blur(10px)',
               border: '1px solid rgba(255, 255, 255, 0.2)'
             }}>
-              <span style={{ fontSize: '18px' }}>🏛️</span>
+              <span style={{ fontSize: '18px' }}></span>
             </div>
             <div>
               <h1 style={{
