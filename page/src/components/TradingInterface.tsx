@@ -100,7 +100,7 @@ export function TradingInterface({
       const receipt = await tx.wait();
 
       console.log('Transfer completed:', receipt);
-      setMessage(`✅ Successfully transferred ${amount} ${selectedStock.symbol} to ${recipient}`);
+      setMessage(`✅Successfully transferred ${amount} ${selectedStock.symbol} to ${recipient}`);
 
       // Reset form
       setAmount('');
