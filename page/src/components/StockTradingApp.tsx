@@ -6,6 +6,7 @@ import { StockList } from './StockList';
 import { TradingInterface } from './TradingInterface';
 import { BalanceDisplay } from './BalanceDisplay';
 import { StockCreationForm } from './StockCreationForm';
+import { StockFaucet } from './StockFaucet';
 import type{ Stock } from '../type';
 import {
   STOCK_TRADING_FACTORY_ADDRESS,
@@ -17,7 +18,7 @@ export function StockTradingApp() {
   const [stocks, setStocks] = useState<Stock[]>([]);
   const [selectedStock, setSelectedStock] = useState<Stock | null>(null);
   const [loading, setLoading] = useState(false);
-  const [activeTab, setActiveTab] = useState<'trading' | 'create'>('trading');
+  const [activeTab, setActiveTab] = useState<'trading' | 'create' | 'faucet'>('trading');
 
   const loadStocks = async () => {
     if (!isConnected) return;
@@ -43,7 +44,7 @@ export function StockTradingApp() {
           return {
             name: stockName,
             symbol: stockName, // Using name as symbol for now
-            price: ethers.formatEther(price),
+            price: ethers.formatUnits(price, 6), // Token price has 6 decimals
             tokenAddress
           };
         })
@@ -161,6 +162,23 @@ export function StockTradingApp() {
                 >
                   🏭 Create Stock
                 </button>
+                <button
+                  onClick={() => setActiveTab('faucet')}
+                  style={{
+                    flex: 1,
+                    padding: '1rem 2rem',
+                    fontSize: '1rem',
+                    fontWeight: '500',
+                    border: 'none',
+                    backgroundColor: activeTab === 'faucet' ? '#f8fafc' : 'white',
+                    color: activeTab === 'faucet' ? '#1f2937' : '#6b7280',
+                    borderBottom: activeTab === 'faucet' ? '2px solid #3b82f6' : '2px solid transparent',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s'
+                  }}
+                >
+                  🚰 Faucet
+                </button>
               </div>
 
               {/* Tab Content */}
@@ -201,12 +219,19 @@ export function StockTradingApp() {
                       />
                     </div>
                   </div>
-                ) : (
+                ) : activeTab === 'create' ? (
                   <div style={{
                     maxWidth: '600px',
                     margin: '0 auto'
                   }}>
                     <StockCreationForm onStockCreated={handleRefresh} />
+                  </div>
+                ) : (
+                  <div style={{
+                    maxWidth: '600px',
+                    margin: '0 auto'
+                  }}>
+                    <StockFaucet stocks={stocks} onMintComplete={handleRefresh} />
                   </div>
                 )}
               </div>

@@ -45,14 +45,14 @@ export function StockCreationForm({ onStockCreated }: StockCreationFormProps) {
         signer
       );
 
-      // Convert price to wei (assuming 18 decimals)
-      const priceInWei = ethers.parseEther(initialPrice);
+      // Convert price to 6 decimals (USDT precision)
+      const priceInUnits = parseInt(initialPrice)*1000000;
 
       console.log('Creating stock token:', {
         stockName,
         tokenName,
         tokenSymbol,
-        initialPrice: priceInWei.toString()
+        initialPrice: priceInUnits.toString()
       });
 
       // Call the createStockToken function
@@ -60,7 +60,7 @@ export function StockCreationForm({ onStockCreated }: StockCreationFormProps) {
         stockName,
         tokenName,
         tokenSymbol,
-        priceInWei
+        priceInUnits
       );
 
       setMessage('Transaction submitted. Waiting for confirmation...');
@@ -243,15 +243,15 @@ export function StockCreationForm({ onStockCreated }: StockCreationFormProps) {
             color: '#374151',
             marginBottom: '0.5rem'
           }}>
-            Initial Price (ETH) *
+            Initial Price (USD) *
           </label>
           <input
             type="number"
             value={initialPrice}
             onChange={(e) => setInitialPrice(e.target.value)}
-            placeholder="e.g., 0.001"
-            step="0.001"
-            min="0.000001"
+            placeholder="e.g., 100"
+            step="0.1"
+            min="1"
             style={{
               width: '100%',
               padding: '0.75rem',
@@ -267,7 +267,7 @@ export function StockCreationForm({ onStockCreated }: StockCreationFormProps) {
             color: '#6b7280',
             margin: '0.25rem 0 0 0'
           }}>
-            The initial price per token in ETH
+            The initial price per token in USDT
           </p>
         </div>
 

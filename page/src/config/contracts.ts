@@ -1,6 +1,6 @@
 // Stock Trading contracts deployed on Sepolia
-export const STOCK_TRADING_FACTORY_ADDRESS = '0xEA19167A0dF608F0d6D34aE9ae3d95b9CAA4E707';
-export const STOCK_TRADING_ADDRESS = '0x6C88EE88C6ecCbc38D4e1e8C4bEBa86EB5a0C50F';
+export const STOCK_TRADING_FACTORY_ADDRESS = '0xADE1d0105911e2E760aEeDeA172406fD52CD81c1';
+export const STOCK_TRADING_ADDRESS = '0xF5DF9E8848029174C716b119b54b6C931bb5F351';
 export const FHE_COUNTER_ADDRESS = '0x43d64475f3410CFcbD27483734D7Ee463FfbaA61';
 
 // StockTradingFactory ABI
@@ -450,6 +450,24 @@ export const STOCK_TOKEN_ABI = [
       }
     ],
     "name": "mint",
+    "outputs": [],
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "inputs": [
+      {
+        "internalType": "address",
+        "name": "to",
+        "type": "address"
+      },
+      {
+        "internalType": "uint64",
+        "name": "amount",
+        "type": "uint64"
+      }
+    ],
+    "name": "mintStock",
     "outputs": [],
     "stateMutability": "nonpayable",
     "type": "function"
