@@ -20,7 +20,7 @@ task("stock:create")
       stockname,
       tokenname, 
       tokensymbol,
-      ethers.parseEther(price)
+      (price)*1000000
     );
 
     await tx.wait();
@@ -170,4 +170,76 @@ task("stock:update-price")
     await tx.wait();
 
     console.log(`Successfully updated price of ${stockname} to ${price} ETH`);
+  });
+
+task("stock:create-popular")
+  .setDescription("Create 5 popular stock tokens (AAPL, TSLA, GOOGL, MSFT, AMZN)")
+  .setAction(async function (_taskArguments: TaskArguments, { ethers, deployments }) {
+    const [signer] = await ethers.getSigners();
+
+    const factoryDeployment = await deployments.get("StockTradingFactory");
+    const factory = await ethers.getContractAt("StockTradingFactory", factoryDeployment.address);
+
+    const stocks = [
+      {
+        stockname: "AAPL",
+        tokenname: "Apple Inc Stock",
+        tokensymbol: "AAPL",
+        price: 150.25
+      },
+      {
+        stockname: "TSLA",
+        tokenname: "Tesla Inc Stock",
+        tokensymbol: "TSLA",
+        price: 242.84
+      },
+      {
+        stockname: "GOOGL",
+        tokenname: "Alphabet Inc Stock",
+        tokensymbol: "GOOGL",
+        price: 138.21
+      },
+      {
+        stockname: "MSFT",
+        tokenname: "Microsoft Corporation Stock",
+        tokensymbol: "MSFT",
+        price: 378.85
+      },
+      {
+        stockname: "AMZN",
+        tokenname: "Amazon.com Inc Stock",
+        tokensymbol: "AMZN",
+        price: 144.05
+      }
+    ];
+
+    console.log("Creating 5 popular stock tokens...\n");
+
+    for (let i = 0; i < stocks.length; i++) {
+      const stock = stocks[i];
+
+      console.log(`${i + 1}/5 Creating ${stock.stockname} (${stock.tokenname}) with price: $${stock.price}`);
+
+      try {
+        const tx = await factory.connect(signer).createStockToken(
+          stock.stockname,
+          stock.tokenname,
+          stock.tokensymbol,
+          Math.floor(stock.price * 1000000) // Convert to wei with 6 decimal precision
+        );
+
+        await tx.wait();
+
+        const tokenAddress = await factory.getStockToken(stock.stockname);
+        console.log(`✅ ${stock.stockname} created successfully! Address: ${tokenAddress}`);
+
+      } catch (error: any) {
+        console.log(`❌ Failed to create ${stock.stockname}: ${error.message}`);
+      }
+
+      console.log("");
+    }
+
+    console.log("All stock tokens creation completed!");
+    console.log("You can now use 'npx hardhat stock:list --network sepolia' to see all created stocks.");
   });
