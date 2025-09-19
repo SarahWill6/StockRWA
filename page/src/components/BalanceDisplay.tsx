@@ -282,56 +282,7 @@ export function BalanceDisplay({ address, stocks, onRefresh }: BalanceDisplayPro
         </button>
       </div>
 
-      <div style={{
-        padding: '1rem',
-        background: 'rgba(102, 126, 234, 0.05)',
-        border: '1px solid rgba(102, 126, 234, 0.1)',
-        borderRadius: '8px',
-        marginBottom: '1.25rem',
-        position: 'relative',
-        zIndex: 1
-      }}>
-        <div style={{
-          display: 'flex',
-          alignItems: 'center',
-          gap: '0.5rem',
-          marginBottom: '0.5rem'
-        }}>
-          <div style={{
-            width: '24px',
-            height: '24px',
-            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
-            borderRadius: '6px',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            fontSize: '11px'
-          }}>
-            🔗
-          </div>
-          <p style={{
-            fontSize: '0.75rem',
-            color: '#667eea',
-            fontWeight: '600',
-            margin: 0
-          }}>
-            Connected Wallet
-          </p>
-        </div>
-        <p style={{
-          fontSize: '0.75rem',
-          fontFamily: 'monospace',
-          color: '#374151',
-          margin: 0,
-          wordBreak: 'break-all',
-          background: 'rgba(255, 255, 255, 0.7)',
-          padding: '0.5rem',
-          borderRadius: '6px',
-          border: '1px solid rgba(102, 126, 234, 0.1)'
-        }}>
-          {address}
-        </p>
-      </div>
+      
 
       <style>{`
         @keyframes spin {
@@ -654,24 +605,6 @@ export function BalanceDisplay({ address, stocks, onRefresh }: BalanceDisplayPro
           ))}
         </div>
       )}
-
-      <div style={{
-        marginTop: '1rem',
-        padding: '0.75rem',
-        backgroundColor: '#ecfdf5',
-        border: '1px solid #bbf7d0',
-        borderRadius: '6px',
-        fontSize: '0.75rem',
-        color: '#166534'
-      }}>
-        <strong>🔐 Privacy & Decryption:</strong>
-        <ul style={{ margin: '0.375rem 0 0 0.75rem', paddingLeft: '0.75rem' }}>
-          <li>Your balances are encrypted using Zama's FHE technology</li>
-          <li>Click "🔓 Decrypt" to view actual amounts (requires wallet signature)</li>
-          <li>Only you can decrypt your balances using your private key</li>
-          <li>Use "🔒 Hide" to re-encrypt the displayed amounts</li>
-        </ul>
-      </div>
     </div>
   );
 }
