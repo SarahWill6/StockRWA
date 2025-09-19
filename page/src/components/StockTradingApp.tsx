@@ -4,6 +4,7 @@ import { ethers } from 'ethers';
 import { Header } from './Header';
 import { StockList } from './StockList';
 import { TradingInterface } from './TradingInterface';
+import { StockTradeInterface } from './StockTradeInterface';
 import { BalanceDisplay } from './BalanceDisplay';
 import { StockCreationForm } from './StockCreationForm';
 import { StockFaucet } from './StockFaucet';
@@ -18,7 +19,7 @@ export function StockTradingApp() {
   const [stocks, setStocks] = useState<Stock[]>([]);
   const [selectedStock, setSelectedStock] = useState<Stock | null>(null);
   const [loading, setLoading] = useState(false);
-  const [activeTab, setActiveTab] = useState<'trading' | 'create' | 'faucet'>('trading');
+  const [activeTab, setActiveTab] = useState<'trade' | 'transfer' | 'create' | 'faucet'>('trade');
 
   const loadStocks = async () => {
     if (!isConnected) return;
@@ -129,21 +130,38 @@ export function StockTradingApp() {
                 borderBottom: '1px solid #e5e7eb'
               }}>
                 <button
-                  onClick={() => setActiveTab('trading')}
+                  onClick={() => setActiveTab('trade')}
                   style={{
                     flex: 1,
                     padding: '1rem 2rem',
                     fontSize: '1rem',
                     fontWeight: '500',
                     border: 'none',
-                    backgroundColor: activeTab === 'trading' ? '#f8fafc' : 'white',
-                    color: activeTab === 'trading' ? '#1f2937' : '#6b7280',
-                    borderBottom: activeTab === 'trading' ? '2px solid #3b82f6' : '2px solid transparent',
+                    backgroundColor: activeTab === 'trade' ? '#f8fafc' : 'white',
+                    color: activeTab === 'trade' ? '#1f2937' : '#6b7280',
+                    borderBottom: activeTab === 'trade' ? '2px solid #3b82f6' : '2px solid transparent',
                     cursor: 'pointer',
                     transition: 'all 0.2s'
                   }}
                 >
-                  📈 Trading
+                  📊 Trade
+                </button>
+                <button
+                  onClick={() => setActiveTab('transfer')}
+                  style={{
+                    flex: 1,
+                    padding: '1rem 2rem',
+                    fontSize: '1rem',
+                    fontWeight: '500',
+                    border: 'none',
+                    backgroundColor: activeTab === 'transfer' ? '#f8fafc' : 'white',
+                    color: activeTab === 'transfer' ? '#1f2937' : '#6b7280',
+                    borderBottom: activeTab === 'transfer' ? '2px solid #3b82f6' : '2px solid transparent',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s'
+                  }}
+                >
+                  💱 Transfer
                 </button>
                 <button
                   onClick={() => setActiveTab('create')}
@@ -183,7 +201,18 @@ export function StockTradingApp() {
 
               {/* Tab Content */}
               <div style={{ padding: '1.5rem' }}>
-                {activeTab === 'trading' ? (
+                {activeTab === 'trade' ? (
+                  <div style={{
+                    maxWidth: '800px',
+                    margin: '0 auto'
+                  }}>
+                    <StockTradeInterface
+                      stocks={stocks}
+                      userAddress={address!}
+                      onTradeComplete={handleRefresh}
+                    />
+                  </div>
+                ) : activeTab === 'transfer' ? (
                   <div style={{
                     display: 'grid',
                     gridTemplateColumns: 'minmax(400px, 1fr) minmax(400px, 1fr)',
@@ -205,7 +234,7 @@ export function StockTradingApp() {
                       />
                     </div>
 
-                    {/* Trading Interface */}
+                    {/* Transfer Interface */}
                     <div style={{
                       backgroundColor: '#f8fafc',
                       borderRadius: '8px',

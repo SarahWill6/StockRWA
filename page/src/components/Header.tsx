@@ -10,9 +10,7 @@ export function Header() {
             <h1 className="header-title">
               🏛️ StockRWA Trading
             </h1>
-            <span className="header-badge">
-              Confidential
-            </span>
+            
           </div>
           <ConnectButton />
         </div>
