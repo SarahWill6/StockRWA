@@ -1,6 +1,5 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { ethers } from 'ethers';
-import { useAccount } from 'wagmi';
 import type { Stock, TokenBalance } from '../type';
 import { STOCK_TOKEN_ABI } from '../config/contracts';
 import { useZamaInstance } from '../hooks/useZamaInstance';
@@ -16,7 +15,7 @@ export function BalanceDisplay({ address, stocks, onRefresh }: BalanceDisplayPro
   const [balances, setBalances] = useState<TokenBalance[]>([]);
   const [loading, setLoading] = useState(false);
   const { instance: zamaInstance } = useZamaInstance();
-  const signer = useEthersSigner();
+  const signerPromise = useEthersSigner();
 
   const loadBalances = async () => {
     if (!address || stocks.length === 0) return;
@@ -71,7 +70,7 @@ export function BalanceDisplay({ address, stocks, onRefresh }: BalanceDisplayPro
   };
 
   const decryptBalance = async (balance: TokenBalance) => {
-    if (!zamaInstance || !signer || !balance.tokenAddress) {
+    if (!zamaInstance || !signerPromise || !balance.tokenAddress) {
       console.error('Missing dependencies for decryption');
       return;
     }
@@ -85,6 +84,12 @@ export function BalanceDisplay({ address, stocks, onRefresh }: BalanceDisplayPro
             : b
         )
       );
+
+      // Get the actual signer from the promise
+      const signer = await signerPromise;
+      if (!signer) {
+        throw new Error('Failed to get signer');
+      }
 
       // Generate keypair for user decryption
       const keypair = zamaInstance.generateKeypair();
@@ -131,13 +136,16 @@ export function BalanceDisplay({ address, stocks, onRefresh }: BalanceDisplayPro
       const decryptedValue = result[balance.encryptedBalance];
       console.log('Decrypted balance:', decryptedValue);
 
+      // Format balance with 6 decimals (divide by 1,000,000)
+      const formattedBalance = (Number(decryptedValue) / 1000000).toFixed(6);
+
       // Update balance with decrypted value
       setBalances(prev =>
         prev.map(b =>
           b.symbol === balance.symbol
             ? {
                 ...b,
-                decryptedBalance: decryptedValue.toString(),
+                decryptedBalance: formattedBalance,
                 isDecrypting: false
               }
             : b
@@ -344,7 +352,7 @@ export function BalanceDisplay({ address, stocks, onRefresh }: BalanceDisplayPro
                 {balance.decryptedBalance === undefined && (
                   <button
                     onClick={() => decryptBalance(balance)}
-                    disabled={balance.isDecrypting || !zamaInstance || !signer}
+                    disabled={balance.isDecrypting || !zamaInstance || !signerPromise}
                     style={{
                       padding: '0.5rem 0.75rem',
                       backgroundColor: balance.isDecrypting ? '#d1d5db' : '#3b82f6',
@@ -353,17 +361,17 @@ export function BalanceDisplay({ address, stocks, onRefresh }: BalanceDisplayPro
                       borderRadius: '6px',
                       fontSize: '0.75rem',
                       fontWeight: '500',
-                      cursor: balance.isDecrypting || !zamaInstance || !signer ? 'not-allowed' : 'pointer',
+                      cursor: balance.isDecrypting || !zamaInstance || !signerPromise ? 'not-allowed' : 'pointer',
                       transition: 'background-color 0.2s',
                       whiteSpace: 'nowrap'
                     }}
                     onMouseEnter={(e) => {
-                      if (!balance.isDecrypting && zamaInstance && signer) {
+                      if (!balance.isDecrypting && zamaInstance && signerPromise) {
                         e.currentTarget.style.backgroundColor = '#2563eb';
                       }
                     }}
                     onMouseLeave={(e) => {
-                      if (!balance.isDecrypting && zamaInstance && signer) {
+                      if (!balance.isDecrypting && zamaInstance && signerPromise) {
                         e.currentTarget.style.backgroundColor = '#3b82f6';
                       }
                     }}
