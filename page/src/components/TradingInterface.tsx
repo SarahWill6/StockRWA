@@ -68,7 +68,7 @@ export function TradingInterface({
         selectedStock.tokenAddress,
         userAddress
       );
-      input.add64(BigInt(amountInUnits));
+      input.add64(amountInUnits);
       const encryptedInput = await input.encrypt();
 
       setMessage('Encrypted input created. Initiating transfer...');
