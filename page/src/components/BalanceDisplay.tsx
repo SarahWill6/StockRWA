@@ -310,7 +310,8 @@ export function BalanceDisplay({ address, stocks, onRefresh }: BalanceDisplayPro
       ) : (
         <div style={{
           display: 'grid',
-          gap: '1rem',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))',
+          gap: '0.75rem',
           position: 'relative',
           zIndex: 1
         }}>
@@ -321,15 +322,16 @@ export function BalanceDisplay({ address, stocks, onRefresh }: BalanceDisplayPro
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                padding: '1.25rem',
+                padding: '0.75rem',
                 background: 'rgba(255, 255, 255, 0.9)',
                 border: '1px solid rgba(255, 255, 255, 0.8)',
-                borderRadius: '12px',
-                boxShadow: '0 6px 20px rgba(0, 0, 0, 0.06), 0 3px 8px rgba(0, 0, 0, 0.02)',
+                borderRadius: '8px',
+                boxShadow: '0 4px 12px rgba(0, 0, 0, 0.06), 0 2px 6px rgba(0, 0, 0, 0.02)',
                 backdropFilter: 'blur(10px)',
                 transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
                 position: 'relative',
-                overflow: 'hidden'
+                overflow: 'hidden',
+                minHeight: '80px'
               }}
               onMouseEnter={(e) => {
                 e.currentTarget.style.transform = 'translateY(-1px)';
@@ -358,14 +360,14 @@ export function BalanceDisplay({ address, stocks, onRefresh }: BalanceDisplayPro
               <div style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: '0.75rem',
+                gap: '0.5rem',
                 position: 'relative',
                 zIndex: 1
               }}>
                 <div style={{
-                  width: '40px',
-                  height: '40px',
-                  borderRadius: '10px',
+                  width: '32px',
+                  height: '32px',
+                  borderRadius: '8px',
                   background: `linear-gradient(135deg, ${
                     ['#667eea', '#06d6a0', '#f72585', '#4361ee', '#f77f00'][index % 5]
                   } 0%, ${
@@ -385,11 +387,11 @@ export function BalanceDisplay({ address, stocks, onRefresh }: BalanceDisplayPro
 
                 <div>
                   <h3 style={{
-                    fontSize: '1rem',
+                    fontSize: '0.875rem',
                     fontWeight: '700',
                     color: '#111827',
                     margin: 0,
-                    marginBottom: '0.25rem',
+                    marginBottom: '0.125rem',
                     letterSpacing: '-0.01em'
                   }}>
                     {balance.symbol}
@@ -410,13 +412,13 @@ export function BalanceDisplay({ address, stocks, onRefresh }: BalanceDisplayPro
               <div style={{
                 display: 'flex',
                 alignItems: 'center',
-                gap: '0.75rem'
+                gap: '0.5rem'
               }}>
                 <div style={{
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'flex-end',
-                  gap: '0.75rem',
+                  gap: '0.5rem',
                   position: 'relative',
                   zIndex: 1
                 }}>
@@ -424,8 +426,8 @@ export function BalanceDisplay({ address, stocks, onRefresh }: BalanceDisplayPro
                     textAlign: 'right'
                   }}>
                     <div style={{
-                      fontSize: '1.25rem',
-                      fontWeight: '800',
+                      fontSize: '1rem',
+                      fontWeight: '700',
                       color: balance.decryptedBalance !== undefined && balance.decryptedBalance !== 'Error'
                         ? '#059669'
                         : '#6b7280',
@@ -515,7 +517,7 @@ export function BalanceDisplay({ address, stocks, onRefresh }: BalanceDisplayPro
                     onClick={() => decryptBalance(balance)}
                     disabled={balance.isDecrypting || !zamaInstance || !signerPromise}
                     style={{
-                      padding: '0.5rem 1rem',
+                      padding: '0.375rem 0.75rem',
                       background: balance.isDecrypting || !zamaInstance || !signerPromise
                         ? '#e5e7eb'
                         : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
@@ -571,7 +573,7 @@ export function BalanceDisplay({ address, stocks, onRefresh }: BalanceDisplayPro
                       );
                     }}
                     style={{
-                      padding: '0.5rem 1rem',
+                      padding: '0.375rem 0.75rem',
                       background: 'linear-gradient(135deg, #6b7280 0%, #4b5563 100%)',
                       color: 'white',
                       border: 'none',
