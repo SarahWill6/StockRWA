@@ -62,11 +62,9 @@ export function StockTradeInterface({
 
       // Convert amount to 6-decimal precision (multiply by 1,000,000)
       const amountInUnits = Math.floor(tradeAmount * 1000000);
-      const priceInUnits = Math.floor(tradePrice * 1000000);
 
       if (tradeType === 'buy') {
         // For buying, we need to pay ETH and receive stock tokens
-        const totalCost = ethers.parseEther((tradeAmount * tradePrice).toFixed(6));
 
         // Create stock factory contract instance for minting
         const stockFactory = new ethers.Contract(

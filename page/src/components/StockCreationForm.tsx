@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ethers } from 'ethers';
 import { useAccount } from 'wagmi';
 import {
@@ -83,13 +83,13 @@ export function StockCreationForm({ onStockCreated }: StockCreationFormProps) {
         setMessage('');
       }, 3000);
 
-    } catch (error) {
+    } catch (error: any) {
       console.error('Stock creation failed:', error);
       let errorMessage = 'Stock creation failed';
 
-      if (error.reason) {
+      if (error?.reason) {
         errorMessage += `: ${error.reason}`;
-      } else if (error.message) {
+      } else if (error?.message) {
         if (error.message.includes('StockAlreadyExists')) {
           errorMessage = 'A stock with this name already exists';
         } else if (error.message.includes('OnlyOwnerAllowed')) {

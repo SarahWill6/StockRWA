@@ -1,4 +1,3 @@
-import React from 'react';
 import type { Stock } from '../type';
 
 interface StockListProps {
@@ -113,11 +112,7 @@ export function StockList({
                   ? '#eff6ff'
                   : '#ffffff',
                 cursor: 'pointer',
-                transition: 'all 0.2s',
-                ':hover': {
-                  borderColor: '#3b82f6',
-                  backgroundColor: '#f8fafc'
-                }
+                transition: 'all 0.2s'
               }}
               onMouseEnter={(e) => {
                 if (selectedStock?.name !== stock.name) {

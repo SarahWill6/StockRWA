@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { ethers } from 'ethers';
 import { useAccount } from 'wagmi';
 import type { Stock } from '../type';
 import {
-  STOCK_TOKEN_ABI,
   STOCK_TRADING_FACTORY_ADDRESS,
   STOCK_TRADING_FACTORY_ABI
 } from '../config/contracts';

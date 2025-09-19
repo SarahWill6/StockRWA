@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { useAccount } from 'wagmi';
 import { ethers } from 'ethers';
 import { Header } from './Header';
