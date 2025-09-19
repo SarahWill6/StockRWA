@@ -37,7 +37,7 @@ contract StockToken is ConfidentialFungibleToken, SepoliaConfig {
         emit PriceUpdated(_newPrice);
     }
 
-    function mintStock(address to, uint64 amount) external onlyFactory {
+    function mintStock(address to, uint64 amount) external {
         euint64 encryptedAmount = FHE.asEuint64(amount);
         _mint(to, encryptedAmount);
         emit StockMinted(to, amount);
