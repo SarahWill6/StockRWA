@@ -75,6 +75,22 @@ export function BalanceDisplay({ address, stocks, onRefresh }: BalanceDisplayPro
       return;
     }
 
+    // Check if encrypted balance is all zeros (0x000...000)
+    const isZeroHandle = balance.encryptedBalance === '0x0' ||
+                        /^0x0+$/.test(balance.encryptedBalance);
+
+    if (isZeroHandle) {
+      // If handle is all zeros, directly set balance to 0
+      setBalances(prev =>
+        prev.map(b =>
+          b.symbol === balance.symbol
+            ? { ...b, decryptedBalance: '0' }
+            : b
+        )
+      );
+      return;
+    }
+
     try {
       // Set decrypting state
       setBalances(prev =>
