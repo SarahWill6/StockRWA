@@ -74,43 +74,135 @@ export function StockTradingApp() {
   };
 
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#f8fafc' }}>
+    <div style={{
+      minHeight: '100vh',
+      background: 'linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%)',
+      position: 'relative',
+      overflow: 'hidden'
+    }}>
+      {/* Background decorations */}
+      <div style={{
+        position: 'absolute',
+        top: '10%',
+        left: '-10%',
+        width: '600px',
+        height: '600px',
+        background: 'linear-gradient(135deg, rgba(102, 126, 234, 0.05) 0%, rgba(118, 75, 162, 0.05) 100%)',
+        borderRadius: '50%',
+        filter: 'blur(80px)',
+        zIndex: 0
+      }} />
+      <div style={{
+        position: 'absolute',
+        bottom: '10%',
+        right: '-10%',
+        width: '800px',
+        height: '800px',
+        background: 'linear-gradient(135deg, rgba(34, 197, 94, 0.05) 0%, rgba(239, 68, 68, 0.05) 100%)',
+        borderRadius: '50%',
+        filter: 'blur(100px)',
+        zIndex: 0
+      }} />
+
       <Header />
 
       <main style={{
-        maxWidth: '1200px',
+        maxWidth: '1400px',
         margin: '0 auto',
-        padding: '2rem 1rem'
+        padding: '1.5rem 1rem',
+        position: 'relative',
+        zIndex: 1
       }}>
         {!isConnected ? (
           <div style={{
             textAlign: 'center',
-            padding: '3rem',
-            backgroundColor: 'white',
-            borderRadius: '12px',
-            boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
+            padding: '4rem 3rem',
+            background: 'linear-gradient(145deg, #ffffff 0%, #f8fafc 100%)',
+            borderRadius: '24px',
+            boxShadow: '0 20px 40px rgba(0, 0, 0, 0.1), 0 8px 20px rgba(0, 0, 0, 0.05)',
+            border: '1px solid rgba(255, 255, 255, 0.8)',
+            backdropFilter: 'blur(10px)',
+            position: 'relative',
+            overflow: 'hidden'
           }}>
-            <h1 style={{
-              fontSize: '2.5rem',
-              fontWeight: 'bold',
-              color: '#1f2937',
-              marginBottom: '1rem'
+            {/* Background decoration for welcome card */}
+            <div style={{
+              position: 'absolute',
+              top: '-80px',
+              right: '-80px',
+              width: '200px',
+              height: '200px',
+              background: 'linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)',
+              borderRadius: '50%',
+              filter: 'blur(60px)'
+            }} />
+
+            <div style={{
+              display: 'flex',
+              justifyContent: 'center',
+              marginBottom: '1.5rem',
+              position: 'relative',
+              zIndex: 1
             }}>
-              🏛️ StockRWA Trading Platform
+              <div style={{
+                width: '60px',
+                height: '60px',
+                background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+                borderRadius: '16px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '24px',
+                boxShadow: '0 12px 30px rgba(102, 126, 234, 0.3)'
+              }}>
+                🏛️
+              </div>
+            </div>
+
+            <h1 style={{
+              fontSize: '2.25rem',
+              fontWeight: '800',
+              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              backgroundClip: 'text',
+              color: 'transparent',
+              marginBottom: '1rem',
+              letterSpacing: '-0.02em',
+              position: 'relative',
+              zIndex: 1
+            }}>
+              StockRWA Trading Platform
             </h1>
             <p style={{
-              fontSize: '1.25rem',
+              fontSize: '1.125rem',
               color: '#6b7280',
-              marginBottom: '2rem'
+              marginBottom: '1.5rem',
+              fontWeight: '500',
+              position: 'relative',
+              zIndex: 1
             }}>
               Trade confidential stock tokens with Zama's FHE technology
             </p>
-            <p style={{ color: '#9ca3af' }}>
-              Please connect your wallet to start trading
-            </p>
+            <div style={{
+              padding: '1rem',
+              background: 'linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)',
+              border: '2px solid rgba(102, 126, 234, 0.2)',
+              borderRadius: '12px',
+              display: 'inline-block',
+              position: 'relative',
+              zIndex: 1
+            }}>
+              <p style={{
+                color: '#667eea',
+                fontSize: '0.875rem',
+                fontWeight: '600',
+                margin: 0
+              }}>
+                🔗 Please connect your wallet to start trading
+              </p>
+            </div>
           </div>
         ) : (
-          <div style={{ display: 'grid', gap: '2rem' }}>
+          <div style={{ display: 'grid', gap: '1.5rem' }}>
             {/* Balance Display */}
             <BalanceDisplay
               address={address!}
@@ -120,28 +212,66 @@ export function StockTradingApp() {
 
             {/* Tab Navigation */}
             <div style={{
-              backgroundColor: 'white',
-              borderRadius: '12px 12px 0 0',
-              boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
-              overflow: 'hidden'
+              background: 'linear-gradient(145deg, #ffffff 0%, #f8fafc 100%)',
+              borderRadius: '16px',
+              boxShadow: '0 10px 25px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.04)',
+              border: '1px solid rgba(255, 255, 255, 0.8)',
+              backdropFilter: 'blur(10px)',
+              overflow: 'hidden',
+              position: 'relative'
             }}>
+              {/* Background decoration for tab container */}
+              <div style={{
+                position: 'absolute',
+                top: '-40px',
+                left: '-40px',
+                width: '150px',
+                height: '150px',
+                background: 'linear-gradient(135deg, rgba(59, 130, 246, 0.1) 0%, rgba(37, 99, 235, 0.1) 100%)',
+                borderRadius: '50%',
+                filter: 'blur(40px)'
+              }} />
+
               <div style={{
                 display: 'flex',
-                borderBottom: '1px solid #e5e7eb'
+                borderBottom: '2px solid rgba(229, 231, 235, 0.8)',
+                position: 'relative',
+                zIndex: 1
               }}>
                 <button
                   onClick={() => setActiveTab('trade')}
                   style={{
                     flex: 1,
-                    padding: '1rem 2rem',
-                    fontSize: '1rem',
-                    fontWeight: '500',
+                    padding: '1rem 1.5rem',
+                    fontSize: '0.875rem',
+                    fontWeight: '700',
                     border: 'none',
-                    backgroundColor: activeTab === 'trade' ? '#f8fafc' : 'white',
-                    color: activeTab === 'trade' ? '#1f2937' : '#6b7280',
-                    borderBottom: activeTab === 'trade' ? '2px solid #3b82f6' : '2px solid transparent',
+                    background: activeTab === 'trade'
+                      ? 'linear-gradient(135deg, #3b82f6 0%, #2563eb 100%)'
+                      : 'transparent',
+                    color: activeTab === 'trade' ? 'white' : '#6b7280',
+                    borderBottom: activeTab === 'trade' ? 'none' : '2px solid transparent',
                     cursor: 'pointer',
-                    transition: 'all 0.2s'
+                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                    borderRadius: activeTab === 'trade' ? '12px 12px 0 0' : '0',
+                    boxShadow: activeTab === 'trade' ? '0 4px 15px rgba(59, 130, 246, 0.3)' : 'none',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '0.5rem',
+                    textShadow: activeTab === 'trade' ? '0 1px 2px rgba(0, 0, 0, 0.1)' : 'none'
+                  }}
+                  onMouseEnter={(e) => {
+                    if (activeTab !== 'trade') {
+                      e.currentTarget.style.backgroundColor = 'rgba(59, 130, 246, 0.1)';
+                      e.currentTarget.style.color = '#3b82f6';
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (activeTab !== 'trade') {
+                      e.currentTarget.style.backgroundColor = 'transparent';
+                      e.currentTarget.style.color = '#6b7280';
+                    }
                   }}
                 >
                   📊 Trade
@@ -150,15 +280,36 @@ export function StockTradingApp() {
                   onClick={() => setActiveTab('transfer')}
                   style={{
                     flex: 1,
-                    padding: '1rem 2rem',
-                    fontSize: '1rem',
-                    fontWeight: '500',
+                    padding: '1rem 1.5rem',
+                    fontSize: '0.875rem',
+                    fontWeight: '700',
                     border: 'none',
-                    backgroundColor: activeTab === 'transfer' ? '#f8fafc' : 'white',
-                    color: activeTab === 'transfer' ? '#1f2937' : '#6b7280',
-                    borderBottom: activeTab === 'transfer' ? '2px solid #3b82f6' : '2px solid transparent',
+                    background: activeTab === 'transfer'
+                      ? 'linear-gradient(135deg, #22c55e 0%, #16a34a 100%)'
+                      : 'transparent',
+                    color: activeTab === 'transfer' ? 'white' : '#6b7280',
+                    borderBottom: activeTab === 'transfer' ? 'none' : '2px solid transparent',
                     cursor: 'pointer',
-                    transition: 'all 0.2s'
+                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                    borderRadius: activeTab === 'transfer' ? '12px 12px 0 0' : '0',
+                    boxShadow: activeTab === 'transfer' ? '0 4px 15px rgba(34, 197, 94, 0.3)' : 'none',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '0.5rem',
+                    textShadow: activeTab === 'transfer' ? '0 1px 2px rgba(0, 0, 0, 0.1)' : 'none'
+                  }}
+                  onMouseEnter={(e) => {
+                    if (activeTab !== 'transfer') {
+                      e.currentTarget.style.backgroundColor = 'rgba(34, 197, 94, 0.1)';
+                      e.currentTarget.style.color = '#22c55e';
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (activeTab !== 'transfer') {
+                      e.currentTarget.style.backgroundColor = 'transparent';
+                      e.currentTarget.style.color = '#6b7280';
+                    }
                   }}
                 >
                   💱 Transfer
@@ -167,15 +318,36 @@ export function StockTradingApp() {
                   onClick={() => setActiveTab('create')}
                   style={{
                     flex: 1,
-                    padding: '1rem 2rem',
-                    fontSize: '1rem',
-                    fontWeight: '500',
+                    padding: '1rem 1.5rem',
+                    fontSize: '0.875rem',
+                    fontWeight: '700',
                     border: 'none',
-                    backgroundColor: activeTab === 'create' ? '#f8fafc' : 'white',
-                    color: activeTab === 'create' ? '#1f2937' : '#6b7280',
-                    borderBottom: activeTab === 'create' ? '2px solid #3b82f6' : '2px solid transparent',
+                    background: activeTab === 'create'
+                      ? 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)'
+                      : 'transparent',
+                    color: activeTab === 'create' ? 'white' : '#6b7280',
+                    borderBottom: activeTab === 'create' ? 'none' : '2px solid transparent',
                     cursor: 'pointer',
-                    transition: 'all 0.2s'
+                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                    borderRadius: activeTab === 'create' ? '12px 12px 0 0' : '0',
+                    boxShadow: activeTab === 'create' ? '0 4px 15px rgba(245, 158, 11, 0.3)' : 'none',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '0.5rem',
+                    textShadow: activeTab === 'create' ? '0 1px 2px rgba(0, 0, 0, 0.1)' : 'none'
+                  }}
+                  onMouseEnter={(e) => {
+                    if (activeTab !== 'create') {
+                      e.currentTarget.style.backgroundColor = 'rgba(245, 158, 11, 0.1)';
+                      e.currentTarget.style.color = '#f59e0b';
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (activeTab !== 'create') {
+                      e.currentTarget.style.backgroundColor = 'transparent';
+                      e.currentTarget.style.color = '#6b7280';
+                    }
                   }}
                 >
                   🏭 Create Stock
@@ -184,15 +356,36 @@ export function StockTradingApp() {
                   onClick={() => setActiveTab('faucet')}
                   style={{
                     flex: 1,
-                    padding: '1rem 2rem',
-                    fontSize: '1rem',
-                    fontWeight: '500',
+                    padding: '1rem 1.5rem',
+                    fontSize: '0.875rem',
+                    fontWeight: '700',
                     border: 'none',
-                    backgroundColor: activeTab === 'faucet' ? '#f8fafc' : 'white',
-                    color: activeTab === 'faucet' ? '#1f2937' : '#6b7280',
-                    borderBottom: activeTab === 'faucet' ? '2px solid #3b82f6' : '2px solid transparent',
+                    background: activeTab === 'faucet'
+                      ? 'linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%)'
+                      : 'transparent',
+                    color: activeTab === 'faucet' ? 'white' : '#6b7280',
+                    borderBottom: activeTab === 'faucet' ? 'none' : '2px solid transparent',
                     cursor: 'pointer',
-                    transition: 'all 0.2s'
+                    transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                    borderRadius: activeTab === 'faucet' ? '12px 12px 0 0' : '0',
+                    boxShadow: activeTab === 'faucet' ? '0 4px 15px rgba(139, 92, 246, 0.3)' : 'none',
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    gap: '0.5rem',
+                    textShadow: activeTab === 'faucet' ? '0 1px 2px rgba(0, 0, 0, 0.1)' : 'none'
+                  }}
+                  onMouseEnter={(e) => {
+                    if (activeTab !== 'faucet') {
+                      e.currentTarget.style.backgroundColor = 'rgba(139, 92, 246, 0.1)';
+                      e.currentTarget.style.color = '#8b5cf6';
+                    }
+                  }}
+                  onMouseLeave={(e) => {
+                    if (activeTab !== 'faucet') {
+                      e.currentTarget.style.backgroundColor = 'transparent';
+                      e.currentTarget.style.color = '#6b7280';
+                    }
                   }}
                 >
                   🚰 Faucet
@@ -200,10 +393,15 @@ export function StockTradingApp() {
               </div>
 
               {/* Tab Content */}
-              <div style={{ padding: '1.5rem' }}>
+              <div style={{
+                padding: '1.5rem',
+                position: 'relative',
+                zIndex: 1,
+                minHeight: '500px'
+              }}>
                 {activeTab === 'trade' ? (
                   <div style={{
-                    maxWidth: '800px',
+                    maxWidth: '900px',
                     margin: '0 auto'
                   }}>
                     <StockTradeInterface
@@ -215,16 +413,12 @@ export function StockTradingApp() {
                 ) : activeTab === 'transfer' ? (
                   <div style={{
                     display: 'grid',
-                    gridTemplateColumns: 'minmax(400px, 1fr) minmax(400px, 1fr)',
-                    gap: '2rem'
+                    gridTemplateColumns: 'minmax(350px, 1fr) minmax(350px, 1fr)',
+                    gap: '1.5rem',
+                    alignItems: 'start'
                   }}>
                     {/* Stock List */}
-                    <div style={{
-                      backgroundColor: '#f8fafc',
-                      borderRadius: '8px',
-                      padding: '1.5rem',
-                      border: '1px solid #e2e8f0'
-                    }}>
+                    <div>
                       <StockList
                         stocks={stocks}
                         loading={loading}
@@ -235,12 +429,7 @@ export function StockTradingApp() {
                     </div>
 
                     {/* Transfer Interface */}
-                    <div style={{
-                      backgroundColor: '#f8fafc',
-                      borderRadius: '8px',
-                      padding: '1.5rem',
-                      border: '1px solid #e2e8f0'
-                    }}>
+                    <div>
                       <TradingInterface
                         selectedStock={selectedStock}
                         userAddress={address!}

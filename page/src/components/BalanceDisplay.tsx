@@ -172,79 +172,173 @@ export function BalanceDisplay({ address, stocks, onRefresh }: BalanceDisplayPro
 
   return (
     <div style={{
-      backgroundColor: 'white',
+      background: 'linear-gradient(145deg, #ffffff 0%, #f8fafc 100%)',
       borderRadius: '12px',
-      padding: '1.5rem',
-      boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
+      padding: '1.25rem',
+      boxShadow: '0 8px 20px rgba(0, 0, 0, 0.08), 0 3px 8px rgba(0, 0, 0, 0.04)',
+      border: '1px solid rgba(255, 255, 255, 0.8)',
+      backdropFilter: 'blur(10px)',
+      position: 'relative',
+      overflow: 'hidden'
     }}>
+      {/* Background decoration */}
+      <div style={{
+        position: 'absolute',
+        top: '-30px',
+        right: '-30px',
+        width: '120px',
+        height: '120px',
+        background: 'linear-gradient(135deg, rgba(102, 126, 234, 0.1) 0%, rgba(118, 75, 162, 0.1) 100%)',
+        borderRadius: '50%',
+        filter: 'blur(30px)'
+      }} />
+
       <div style={{
         display: 'flex',
         justifyContent: 'space-between',
         alignItems: 'center',
-        marginBottom: '1.5rem'
+        marginBottom: '1.25rem',
+        position: 'relative',
+        zIndex: 1
       }}>
-        <h2 style={{
-          fontSize: '1.5rem',
-          fontWeight: 'bold',
-          color: '#111827',
-          margin: 0
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.5rem'
         }}>
-          💰 Your Portfolio
-        </h2>
+          <div style={{
+            width: '32px',
+            height: '32px',
+            background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
+            borderRadius: '8px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: '14px',
+            boxShadow: '0 3px 10px rgba(245, 158, 11, 0.3)'
+          }}>
+            💰
+          </div>
+          <div>
+            <h2 style={{
+              fontSize: '1.25rem',
+              fontWeight: '700',
+              background: 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
+              backgroundClip: 'text',
+              color: 'transparent',
+              margin: 0,
+              letterSpacing: '-0.02em'
+            }}>
+              Your Portfolio
+            </h2>
+            <p style={{
+              fontSize: '0.75rem',
+              color: '#6b7280',
+              margin: 0,
+              fontWeight: '500'
+            }}>
+              Encrypted Token Holdings
+            </p>
+          </div>
+        </div>
         <button
           onClick={handleRefreshBalances}
           disabled={loading}
           style={{
             padding: '0.5rem 1rem',
-            backgroundColor: '#3b82f6',
+            background: loading ? '#e5e7eb' : 'linear-gradient(135deg, #f59e0b 0%, #d97706 100%)',
             color: 'white',
             border: 'none',
-            borderRadius: '6px',
-            fontSize: '0.875rem',
+            borderRadius: '8px',
+            fontSize: '0.75rem',
+            fontWeight: '600',
             cursor: loading ? 'not-allowed' : 'pointer',
-            opacity: loading ? 0.6 : 1,
-            transition: 'all 0.2s'
+            transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+            boxShadow: loading ? 'none' : '0 3px 10px rgba(245, 158, 11, 0.3)',
+            transform: loading ? 'none' : 'translateY(0)',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.375rem'
           }}
           onMouseEnter={(e) => {
             if (!loading) {
-              e.currentTarget.style.backgroundColor = '#2563eb';
+              e.currentTarget.style.transform = 'translateY(-1px)';
+              e.currentTarget.style.boxShadow = '0 4px 12px rgba(245, 158, 11, 0.4)';
             }
           }}
           onMouseLeave={(e) => {
             if (!loading) {
-              e.currentTarget.style.backgroundColor = '#3b82f6';
+              e.currentTarget.style.transform = 'translateY(0)';
+              e.currentTarget.style.boxShadow = '0 3px 10px rgba(245, 158, 11, 0.3)';
             }
           }}
         >
-          {loading ? '🔄 Loading...' : '🔄 Refresh'}
+          <span style={{
+            display: 'inline-block',
+            animation: loading ? 'spin 1s linear infinite' : 'none',
+            fontSize: '12px'
+          }}>🔄</span>
+          {loading ? 'Loading...' : 'Refresh'}
         </button>
       </div>
 
       <div style={{
         padding: '1rem',
-        backgroundColor: '#f8fafc',
-        border: '1px solid #e2e8f0',
+        background: 'rgba(102, 126, 234, 0.05)',
+        border: '1px solid rgba(102, 126, 234, 0.1)',
         borderRadius: '8px',
-        marginBottom: '1.5rem'
+        marginBottom: '1.25rem',
+        position: 'relative',
+        zIndex: 1
       }}>
-        <p style={{
-          fontSize: '0.875rem',
-          color: '#6b7280',
-          margin: 0,
+        <div style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.5rem',
           marginBottom: '0.5rem'
         }}>
-          <strong>Connected Address:</strong>
-        </p>
+          <div style={{
+            width: '24px',
+            height: '24px',
+            background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+            borderRadius: '6px',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            fontSize: '11px'
+          }}>
+            🔗
+          </div>
+          <p style={{
+            fontSize: '0.75rem',
+            color: '#667eea',
+            fontWeight: '600',
+            margin: 0
+          }}>
+            Connected Wallet
+          </p>
+        </div>
         <p style={{
-          fontSize: '0.875rem',
+          fontSize: '0.75rem',
           fontFamily: 'monospace',
-          color: '#111827',
+          color: '#374151',
           margin: 0,
-          wordBreak: 'break-all'
+          wordBreak: 'break-all',
+          background: 'rgba(255, 255, 255, 0.7)',
+          padding: '0.5rem',
+          borderRadius: '6px',
+          border: '1px solid rgba(102, 126, 234, 0.1)'
         }}>
           {address}
         </p>
       </div>
+
+      <style>{`
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
+        }
+      `}</style>
 
       {loading ? (
         <div style={{
@@ -265,7 +359,9 @@ export function BalanceDisplay({ address, stocks, onRefresh }: BalanceDisplayPro
       ) : (
         <div style={{
           display: 'grid',
-          gap: '1rem'
+          gap: '1rem',
+          position: 'relative',
+          zIndex: 1
         }}>
           {balances.map((balance, index) => (
             <div
@@ -274,31 +370,91 @@ export function BalanceDisplay({ address, stocks, onRefresh }: BalanceDisplayPro
                 display: 'flex',
                 justifyContent: 'space-between',
                 alignItems: 'center',
-                padding: '1rem',
-                border: '1px solid #e5e7eb',
-                borderRadius: '8px',
-                backgroundColor: '#ffffff'
+                padding: '1.25rem',
+                background: 'rgba(255, 255, 255, 0.9)',
+                border: '1px solid rgba(255, 255, 255, 0.8)',
+                borderRadius: '12px',
+                boxShadow: '0 6px 20px rgba(0, 0, 0, 0.06), 0 3px 8px rgba(0, 0, 0, 0.02)',
+                backdropFilter: 'blur(10px)',
+                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                position: 'relative',
+                overflow: 'hidden'
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.transform = 'translateY(-1px)';
+                e.currentTarget.style.boxShadow = '0 8px 25px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.03)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.boxShadow = '0 6px 20px rgba(0, 0, 0, 0.06), 0 3px 8px rgba(0, 0, 0, 0.02)';
               }}
             >
-              <div>
-                <h3 style={{
-                  fontSize: '1.125rem',
-                  fontWeight: '600',
-                  color: '#111827',
-                  margin: 0,
-                  marginBottom: '0.25rem'
+              {/* Background decoration */}
+              <div style={{
+                position: 'absolute',
+                top: '-15px',
+                right: '-15px',
+                width: '60px',
+                height: '60px',
+                background: `linear-gradient(135deg, ${
+                  ['rgba(102, 126, 234, 0.1)', 'rgba(6, 214, 160, 0.1)', 'rgba(247, 37, 133, 0.1)', 'rgba(67, 97, 238, 0.1)', 'rgba(247, 127, 0, 0.1)'][index % 5]
+                } 0%, ${
+                  ['rgba(118, 75, 162, 0.1)', 'rgba(17, 138, 178, 0.1)', 'rgba(181, 23, 158, 0.1)', 'rgba(114, 9, 183, 0.1)', 'rgba(252, 191, 73, 0.1)'][index % 5]
+                } 100%)`,
+                borderRadius: '50%',
+                filter: 'blur(15px)'
+              }} />
+              <div style={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: '0.75rem',
+                position: 'relative',
+                zIndex: 1
+              }}>
+                <div style={{
+                  width: '40px',
+                  height: '40px',
+                  borderRadius: '10px',
+                  background: `linear-gradient(135deg, ${
+                    ['#667eea', '#06d6a0', '#f72585', '#4361ee', '#f77f00'][index % 5]
+                  } 0%, ${
+                    ['#764ba2', '#118ab2', '#b5179e', '#7209b7', '#fcbf49'][index % 5]
+                  } 100%)`,
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '14px',
+                  fontWeight: 'bold',
+                  color: 'white',
+                  textShadow: '0 1px 2px rgba(0, 0, 0, 0.3)',
+                  boxShadow: '0 3px 10px rgba(0, 0, 0, 0.15)'
                 }}>
-                  {balance.symbol}
-                </h3>
-                <p style={{
-                  fontSize: '0.75rem',
-                  color: '#6b7280',
-                  margin: 0,
-                  fontFamily: 'monospace',
-                  wordBreak: 'break-all'
-                }}>
-                  Handle: {balance.encryptedBalance}
-                </p>
+                  {balance.symbol.substring(0, 2).toUpperCase()}
+                </div>
+
+                <div>
+                  <h3 style={{
+                    fontSize: '1rem',
+                    fontWeight: '700',
+                    color: '#111827',
+                    margin: 0,
+                    marginBottom: '0.25rem',
+                    letterSpacing: '-0.01em'
+                  }}>
+                    {balance.symbol}
+                  </h3>
+                  <div style={{
+                    fontSize: '0.625rem',
+                    color: '#6b7280',
+                    fontFamily: 'monospace',
+                    background: 'rgba(107, 114, 128, 0.1)',
+                    padding: '0.125rem 0.375rem',
+                    borderRadius: '4px',
+                    display: 'inline-block'
+                  }}>
+                    {balance.encryptedBalance.substring(0, 10)}...
+                  </div>
+                </div>
               </div>
               <div style={{
                 display: 'flex',
@@ -309,44 +465,98 @@ export function BalanceDisplay({ address, stocks, onRefresh }: BalanceDisplayPro
                   display: 'flex',
                   flexDirection: 'column',
                   alignItems: 'flex-end',
-                  gap: '0.25rem'
+                  gap: '0.75rem',
+                  position: 'relative',
+                  zIndex: 1
                 }}>
-                  <span style={{
-                    fontSize: '1.25rem',
-                    fontWeight: 'bold',
-                    color: '#111827'
+                  <div style={{
+                    textAlign: 'right'
                   }}>
-                    {balance.decryptedBalance !== undefined
-                      ? (balance.decryptedBalance === 'Error'
-                          ? '❌ Error'
-                          : `${balance.decryptedBalance} ${balance.symbol}`)
-                      : balance.balance
-                    }
-                  </span>
-                  {balance.decryptedBalance === undefined && (
                     <div style={{
-                      padding: '0.25rem 0.5rem',
-                      backgroundColor: '#fef3c7',
-                      border: '1px solid #fde68a',
-                      borderRadius: '4px',
-                      fontSize: '0.75rem',
-                      color: '#92400e'
+                      fontSize: '1.25rem',
+                      fontWeight: '800',
+                      color: balance.decryptedBalance !== undefined && balance.decryptedBalance !== 'Error'
+                        ? '#059669'
+                        : '#6b7280',
+                      marginBottom: '0.125rem',
+                      letterSpacing: '-0.02em'
                     }}>
-                      🔒 Encrypted
+                      {balance.decryptedBalance !== undefined
+                        ? (balance.decryptedBalance === 'Error'
+                            ? '❌ Error'
+                            : `${balance.decryptedBalance} ${balance.symbol}`)
+                        : '***'
+                      }
                     </div>
-                  )}
-                  {balance.decryptedBalance !== undefined && balance.decryptedBalance !== 'Error' && (
-                    <div style={{
-                      padding: '0.25rem 0.5rem',
-                      backgroundColor: '#dcfce7',
-                      border: '1px solid #bbf7d0',
-                      borderRadius: '4px',
-                      fontSize: '0.75rem',
-                      color: '#166534'
-                    }}>
-                      🔓 Decrypted
-                    </div>
-                  )}
+
+                    {balance.decryptedBalance === undefined ? (
+                      <div style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '0.375rem',
+                        padding: '0.375rem 0.75rem',
+                        background: 'linear-gradient(135deg, rgba(245, 158, 11, 0.1) 0%, rgba(217, 119, 6, 0.1) 100%)',
+                        border: '1px solid rgba(245, 158, 11, 0.2)',
+                        borderRadius: '8px',
+                        fontSize: '0.625rem',
+                        fontWeight: '600',
+                        color: '#d97706'
+                      }}>
+                        <div style={{
+                          width: '6px',
+                          height: '6px',
+                          borderRadius: '50%',
+                          backgroundColor: '#f59e0b',
+                          boxShadow: '0 0 6px rgba(245, 158, 11, 0.6)'
+                        }} />
+                        ENCRYPTED
+                      </div>
+                    ) : balance.decryptedBalance !== 'Error' ? (
+                      <div style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '0.375rem',
+                        padding: '0.375rem 0.75rem',
+                        background: 'linear-gradient(135deg, rgba(5, 150, 105, 0.1) 0%, rgba(4, 120, 87, 0.1) 100%)',
+                        border: '1px solid rgba(5, 150, 105, 0.2)',
+                        borderRadius: '8px',
+                        fontSize: '0.625rem',
+                        fontWeight: '600',
+                        color: '#059669'
+                      }}>
+                        <div style={{
+                          width: '6px',
+                          height: '6px',
+                          borderRadius: '50%',
+                          backgroundColor: '#10b981',
+                          boxShadow: '0 0 6px rgba(16, 185, 129, 0.6)'
+                        }} />
+                        DECRYPTED
+                      </div>
+                    ) : (
+                      <div style={{
+                        display: 'inline-flex',
+                        alignItems: 'center',
+                        gap: '0.375rem',
+                        padding: '0.375rem 0.75rem',
+                        background: 'linear-gradient(135deg, rgba(239, 68, 68, 0.1) 0%, rgba(220, 38, 38, 0.1) 100%)',
+                        border: '1px solid rgba(239, 68, 68, 0.2)',
+                        borderRadius: '8px',
+                        fontSize: '0.625rem',
+                        fontWeight: '600',
+                        color: '#dc2626'
+                      }}>
+                        <div style={{
+                          width: '6px',
+                          height: '6px',
+                          borderRadius: '50%',
+                          backgroundColor: '#ef4444',
+                          boxShadow: '0 0 6px rgba(239, 68, 68, 0.6)'
+                        }} />
+                        ERROR
+                      </div>
+                    )}
+                  </div>
                 </div>
 
                 {balance.decryptedBalance === undefined && (
@@ -354,29 +564,47 @@ export function BalanceDisplay({ address, stocks, onRefresh }: BalanceDisplayPro
                     onClick={() => decryptBalance(balance)}
                     disabled={balance.isDecrypting || !zamaInstance || !signerPromise}
                     style={{
-                      padding: '0.5rem 0.75rem',
-                      backgroundColor: balance.isDecrypting ? '#d1d5db' : '#3b82f6',
+                      padding: '0.5rem 1rem',
+                      background: balance.isDecrypting || !zamaInstance || !signerPromise
+                        ? '#e5e7eb'
+                        : 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
                       color: 'white',
                       border: 'none',
-                      borderRadius: '6px',
+                      borderRadius: '8px',
                       fontSize: '0.75rem',
-                      fontWeight: '500',
+                      fontWeight: '600',
                       cursor: balance.isDecrypting || !zamaInstance || !signerPromise ? 'not-allowed' : 'pointer',
-                      transition: 'background-color 0.2s',
-                      whiteSpace: 'nowrap'
+                      transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                      whiteSpace: 'nowrap',
+                      boxShadow: balance.isDecrypting || !zamaInstance || !signerPromise
+                        ? 'none'
+                        : '0 3px 10px rgba(102, 126, 234, 0.3)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.375rem',
+                      position: 'relative',
+                      zIndex: 1
                     }}
                     onMouseEnter={(e) => {
                       if (!balance.isDecrypting && zamaInstance && signerPromise) {
-                        e.currentTarget.style.backgroundColor = '#2563eb';
+                        e.currentTarget.style.transform = 'translateY(-1px)';
+                        e.currentTarget.style.boxShadow = '0 4px 12px rgba(102, 126, 234, 0.4)';
                       }
                     }}
                     onMouseLeave={(e) => {
                       if (!balance.isDecrypting && zamaInstance && signerPromise) {
-                        e.currentTarget.style.backgroundColor = '#3b82f6';
+                        e.currentTarget.style.transform = 'translateY(0)';
+                        e.currentTarget.style.boxShadow = '0 3px 10px rgba(102, 126, 234, 0.3)';
                       }
                     }}
                   >
-                    {balance.isDecrypting ? '🔄 Decrypting...' : '🔓 Decrypt'}
+                    <span style={{
+                      display: 'inline-block',
+                      animation: balance.isDecrypting ? 'spin 1s linear infinite' : 'none'
+                    }}>
+                      {balance.isDecrypting ? '🔄' : '🔓'}
+                    </span>
+                    {balance.isDecrypting ? 'Decrypting...' : 'Decrypt'}
                   </button>
                 )}
 
@@ -392,22 +620,30 @@ export function BalanceDisplay({ address, stocks, onRefresh }: BalanceDisplayPro
                       );
                     }}
                     style={{
-                      padding: '0.5rem 0.75rem',
-                      backgroundColor: '#6b7280',
+                      padding: '0.5rem 1rem',
+                      background: 'linear-gradient(135deg, #6b7280 0%, #4b5563 100%)',
                       color: 'white',
                       border: 'none',
-                      borderRadius: '6px',
+                      borderRadius: '8px',
                       fontSize: '0.75rem',
-                      fontWeight: '500',
+                      fontWeight: '600',
                       cursor: 'pointer',
-                      transition: 'background-color 0.2s',
-                      whiteSpace: 'nowrap'
+                      transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+                      whiteSpace: 'nowrap',
+                      boxShadow: '0 3px 10px rgba(107, 114, 128, 0.3)',
+                      display: 'flex',
+                      alignItems: 'center',
+                      gap: '0.375rem',
+                      position: 'relative',
+                      zIndex: 1
                     }}
                     onMouseEnter={(e) => {
-                      e.currentTarget.style.backgroundColor = '#4b5563';
+                      e.currentTarget.style.transform = 'translateY(-1px)';
+                      e.currentTarget.style.boxShadow = '0 4px 12px rgba(107, 114, 128, 0.4)';
                     }}
                     onMouseLeave={(e) => {
-                      e.currentTarget.style.backgroundColor = '#6b7280';
+                      e.currentTarget.style.transform = 'translateY(0)';
+                      e.currentTarget.style.boxShadow = '0 3px 10px rgba(107, 114, 128, 0.3)';
                     }}
                   >
                     🔒 Hide
@@ -420,16 +656,16 @@ export function BalanceDisplay({ address, stocks, onRefresh }: BalanceDisplayPro
       )}
 
       <div style={{
-        marginTop: '1.5rem',
-        padding: '1rem',
+        marginTop: '1rem',
+        padding: '0.75rem',
         backgroundColor: '#ecfdf5',
         border: '1px solid #bbf7d0',
-        borderRadius: '8px',
-        fontSize: '0.875rem',
+        borderRadius: '6px',
+        fontSize: '0.75rem',
         color: '#166534'
       }}>
         <strong>🔐 Privacy & Decryption:</strong>
-        <ul style={{ margin: '0.5rem 0 0 1rem', paddingLeft: '1rem' }}>
+        <ul style={{ margin: '0.375rem 0 0 0.75rem', paddingLeft: '0.75rem' }}>
           <li>Your balances are encrypted using Zama's FHE technology</li>
           <li>Click "🔓 Decrypt" to view actual amounts (requires wallet signature)</li>
           <li>Only you can decrypt your balances using your private key</li>
