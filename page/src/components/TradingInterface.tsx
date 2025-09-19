@@ -88,7 +88,7 @@ export function TradingInterface({
       });
 
       // Call the encrypted transfer function
-      const tx = await stockToken.transfer(
+      const tx = await stockToken.confidentialTransfer(
         recipient,
         encryptedInput.handles[0],
         encryptedInput.inputProof

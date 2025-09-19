@@ -2,7 +2,11 @@ import React, { useState } from 'react';
 import { ethers } from 'ethers';
 import { useAccount } from 'wagmi';
 import type { Stock } from '../type';
-import { STOCK_TOKEN_ABI } from '../config/contracts';
+import {
+  STOCK_TOKEN_ABI,
+  STOCK_TRADING_FACTORY_ADDRESS,
+  STOCK_TRADING_FACTORY_ABI
+} from '../config/contracts';
 
 interface StockFaucetProps {
   stocks: Stock[];
@@ -32,22 +36,22 @@ export function StockFaucet({ stocks, onMintComplete }: StockFaucetProps) {
       const provider = new ethers.BrowserProvider(window.ethereum);
       const signer = await provider.getSigner();
 
-      // Create stock token contract instance
-      const stockToken = new ethers.Contract(
-        selectedStock.tokenAddress,
-        STOCK_TOKEN_ABI,
+      // Create stock factory contract instance
+      const stockFactory = new ethers.Contract(
+        STOCK_TRADING_FACTORY_ADDRESS,
+        STOCK_TRADING_FACTORY_ABI,
         signer
       );
 
       console.log('Minting tokens:', {
         stock: selectedStock.name,
-        tokenAddress: selectedStock.tokenAddress,
+        stockName: selectedStock.name,
         recipient: address,
         amount: amount
       });
 
-      // Call the mintStock function
-      const tx = await stockToken.mintStock(address, amount);
+      // Call the mintStockTokens function
+      const tx = await stockFactory.mintStockTokens(selectedStock.name, address, amount);
 
       setMessage('Transaction submitted. Waiting for confirmation...');
 
