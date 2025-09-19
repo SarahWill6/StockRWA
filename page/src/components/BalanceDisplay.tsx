@@ -136,8 +136,8 @@ export function BalanceDisplay({ address, stocks, onRefresh }: BalanceDisplayPro
       const decryptedValue = result[balance.encryptedBalance];
       console.log('Decrypted balance:', decryptedValue);
 
-      // Format balance with 6 decimals (divide by 1,000,000)
-      const formattedBalance = (Number(decryptedValue) / 1000000).toFixed(6);
+      // Format balance as whole number (divide by 1,000,000 and round)
+      const formattedBalance = Math.round(Number(decryptedValue) / 1000000).toString();
 
       // Update balance with decrypted value
       setBalances(prev =>

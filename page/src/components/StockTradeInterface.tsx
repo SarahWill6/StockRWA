@@ -160,7 +160,7 @@ export function StockTradeInterface({
   const calculateTotal = () => {
     const tradeAmount = parseFloat(amount) || 0;
     const tradePrice = parseFloat(price) || 0;
-    return (tradeAmount * tradePrice).toFixed(6);
+    return (tradeAmount * tradePrice).toFixed(2);
   };
 
   return (

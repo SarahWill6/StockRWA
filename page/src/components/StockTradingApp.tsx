@@ -29,23 +29,43 @@ export function StockTradingApp() {
 
       // Create provider
       const provider = new ethers.BrowserProvider(window.ethereum);
+
+      // Debug: Log network and contract info
+      const network = await provider.getNetwork();
+      console.log('🌐 Current Network:', {
+        chainId: network.chainId.toString(),
+        name: network.name,
+        ensAddress: network.ensAddress
+      });
+
+      console.log('📋 Contract Address:', STOCK_TRADING_FACTORY_ADDRESS);
+
       const factory = new ethers.Contract(
         STOCK_TRADING_FACTORY_ADDRESS,
         STOCK_TRADING_FACTORY_ABI,
         provider
       );
 
+      // Debug: Check if contract exists
+      const code = await provider.getCode(STOCK_TRADING_FACTORY_ADDRESS);
+      console.log('📦 Contract Code Length:', code.length);
+      console.log('📦 Contract Code:', code.slice(0, 100) + '...');
+
       // Get all stock names
+      console.log('🔍 Calling getAllStockNames...');
       const stockNames = await factory.getAllStockNames();
+      console.log('📊 Stock Names:', stockNames);
 
       // Get details for each stock
       const stockDetails = await Promise.all(
         stockNames.map(async (name: string) => {
           const [stockName, price, tokenAddress] = await factory.getStockInfo(name);
+          // Convert price from wei (with 6 decimal precision) back to USD format
+          const priceInUSD = Number(price) / 1000000;
           return {
             name: stockName,
             symbol: stockName, // Using name as symbol for now
-            price: ethers.formatUnits(price, 6), // Token price has 6 decimals
+            price: priceInUSD.toFixed(2), // Display as USD with 2 decimal places
             tokenAddress
           };
         })
@@ -53,7 +73,13 @@ export function StockTradingApp() {
 
       setStocks(stockDetails);
     } catch (error) {
-      console.error('Failed to load stocks:', error);
+      console.error('❌ Failed to load stocks:', error);
+      console.error('❌ Error details:', {
+        message: error instanceof Error ? error.message : 'Unknown error',
+        code: error?.code,
+        data: error?.data,
+        reason: error?.reason
+      });
     } finally {
       setLoading(false);
     }
