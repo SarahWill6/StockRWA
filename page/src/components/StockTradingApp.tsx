@@ -5,6 +5,7 @@ import { Header } from './Header';
 import { StockList } from './StockList';
 import { TradingInterface } from './TradingInterface';
 import { BalanceDisplay } from './BalanceDisplay';
+import { StockCreationForm } from './StockCreationForm';
 import type{ Stock } from '../type';
 import {
   STOCK_TRADING_FACTORY_ADDRESS,
@@ -16,6 +17,7 @@ export function StockTradingApp() {
   const [stocks, setStocks] = useState<Stock[]>([]);
   const [selectedStock, setSelectedStock] = useState<Stock | null>(null);
   const [loading, setLoading] = useState(false);
+  const [activeTab, setActiveTab] = useState<'trading' | 'create'>('trading');
 
   const loadStocks = async () => {
     if (!isConnected) return;
@@ -114,43 +116,99 @@ export function StockTradingApp() {
               onRefresh={handleRefresh}
             />
 
-            {/* Main Trading Interface */}
+            {/* Tab Navigation */}
             <div style={{
-              display: 'grid',
-              gridTemplateColumns: 'minmax(400px, 1fr) minmax(400px, 1fr)',
-              gap: '2rem',
-              '@media (max-width: 768px)': {
-                gridTemplateColumns: '1fr'
-              }
+              backgroundColor: 'white',
+              borderRadius: '12px 12px 0 0',
+              boxShadow: '0 1px 3px rgba(0,0,0,0.1)',
+              overflow: 'hidden'
             }}>
-              {/* Stock List */}
               <div style={{
-                backgroundColor: 'white',
-                borderRadius: '12px',
-                padding: '1.5rem',
-                boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
+                display: 'flex',
+                borderBottom: '1px solid #e5e7eb'
               }}>
-                <StockList
-                  stocks={stocks}
-                  loading={loading}
-                  onStockSelect={handleStockSelect}
-                  selectedStock={selectedStock}
-                  onRefresh={handleRefresh}
-                />
+                <button
+                  onClick={() => setActiveTab('trading')}
+                  style={{
+                    flex: 1,
+                    padding: '1rem 2rem',
+                    fontSize: '1rem',
+                    fontWeight: '500',
+                    border: 'none',
+                    backgroundColor: activeTab === 'trading' ? '#f8fafc' : 'white',
+                    color: activeTab === 'trading' ? '#1f2937' : '#6b7280',
+                    borderBottom: activeTab === 'trading' ? '2px solid #3b82f6' : '2px solid transparent',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s'
+                  }}
+                >
+                  📈 Trading
+                </button>
+                <button
+                  onClick={() => setActiveTab('create')}
+                  style={{
+                    flex: 1,
+                    padding: '1rem 2rem',
+                    fontSize: '1rem',
+                    fontWeight: '500',
+                    border: 'none',
+                    backgroundColor: activeTab === 'create' ? '#f8fafc' : 'white',
+                    color: activeTab === 'create' ? '#1f2937' : '#6b7280',
+                    borderBottom: activeTab === 'create' ? '2px solid #3b82f6' : '2px solid transparent',
+                    cursor: 'pointer',
+                    transition: 'all 0.2s'
+                  }}
+                >
+                  🏭 Create Stock
+                </button>
               </div>
 
-              {/* Trading Interface */}
-              <div style={{
-                backgroundColor: 'white',
-                borderRadius: '12px',
-                padding: '1.5rem',
-                boxShadow: '0 1px 3px rgba(0,0,0,0.1)'
-              }}>
-                <TradingInterface
-                  selectedStock={selectedStock}
-                  userAddress={address!}
-                  onTradeComplete={handleRefresh}
-                />
+              {/* Tab Content */}
+              <div style={{ padding: '1.5rem' }}>
+                {activeTab === 'trading' ? (
+                  <div style={{
+                    display: 'grid',
+                    gridTemplateColumns: 'minmax(400px, 1fr) minmax(400px, 1fr)',
+                    gap: '2rem'
+                  }}>
+                    {/* Stock List */}
+                    <div style={{
+                      backgroundColor: '#f8fafc',
+                      borderRadius: '8px',
+                      padding: '1.5rem',
+                      border: '1px solid #e2e8f0'
+                    }}>
+                      <StockList
+                        stocks={stocks}
+                        loading={loading}
+                        onStockSelect={handleStockSelect}
+                        selectedStock={selectedStock}
+                        onRefresh={handleRefresh}
+                      />
+                    </div>
+
+                    {/* Trading Interface */}
+                    <div style={{
+                      backgroundColor: '#f8fafc',
+                      borderRadius: '8px',
+                      padding: '1.5rem',
+                      border: '1px solid #e2e8f0'
+                    }}>
+                      <TradingInterface
+                        selectedStock={selectedStock}
+                        userAddress={address!}
+                        onTradeComplete={handleRefresh}
+                      />
+                    </div>
+                  </div>
+                ) : (
+                  <div style={{
+                    maxWidth: '600px',
+                    margin: '0 auto'
+                  }}>
+                    <StockCreationForm onStockCreated={handleRefresh} />
+                  </div>
+                )}
               </div>
             </div>
           </div>
