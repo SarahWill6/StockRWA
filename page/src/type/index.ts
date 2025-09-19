@@ -9,4 +9,7 @@ export interface TokenBalance {
   symbol: string;
   balance: string;
   encryptedBalance: string;
+  decryptedBalance?: string;
+  isDecrypting?: boolean;
+  tokenAddress?: string;
 }
